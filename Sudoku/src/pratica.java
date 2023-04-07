@@ -74,8 +74,14 @@ public class pratica {
 
 				}
 			}
-			
-		}
+		for(int linha=0; linha<sudoku.length; linha++) {
+			for(int coluna=0; coluna<sudoku[0].length; coluna++) {
+				if(sudoku[linha][coluna] == sudoku[linha][0] || sudoku[linha][coluna] == sudoku[linha][1] || sudoku[linha][coluna] == sudoku[linha][2] || sudoku[linha][coluna] == sudoku[linha][3] || sudoku[linha][coluna] == sudoku[linha][4] || sudoku[linha][coluna] == sudoku[linha][5] || sudoku[linha][coluna] == sudoku[linha][6] || sudoku[linha][coluna] == sudoku[linha][7] || sudoku[linha][coluna] == sudoku[linha][8]) {
+				System.out.println("Sudoku errado!!");
+			}else if(sudoku[linha][coluna] == sudoku[0][coluna] || sudoku[linha][coluna] == sudoku[1][coluna] || sudoku[linha][coluna] == sudoku[2][coluna]);
+			}
+		}		
 	}
+}
 
 
