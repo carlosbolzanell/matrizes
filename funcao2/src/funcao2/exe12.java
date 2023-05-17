@@ -1,7 +1,7 @@
 package funcao2;
 import java.util.Scanner;
 
-public class ex_12 {
+public class exe12 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -9,7 +9,7 @@ public class ex_12 {
 		String nome;
 		
 		System.out.println("Qual o seu nome?");
-		nome = sc.next();
+		nome = sc.nextLine();
 		
 		
 		System.out.println(obterSobrenome(nome));
