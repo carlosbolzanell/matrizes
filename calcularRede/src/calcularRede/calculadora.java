@@ -18,7 +18,11 @@ public class calculadora {
 		
 		System.out.print("\n");
 		
-		getBinarioIp(ip, ip1, binario1);
+		int rede = getBinarioIp(ip, ip1, binario1);
+		String redeFinal = getRede(ip, ip1, rede);
+		System.out.print("\n");
+		System.out.println(redeFinal);
+		String broadcast =  getBroadcast(redeFinal);
 
 	}
 	static String getMascara(String preMascara) {
@@ -104,13 +108,14 @@ public class calculadora {
 					}
 					System.out.print(binario[j]);
 				}
+				
 				return i;
 			}
 		}
 		return 0;
 		
 	}
-	static void getBinarioIp(String ip, int ip1, String[] binario1) {
+	static int getBinarioIp(String ip, int ip1, String[] binario1) {
 		
 		String[] casa = ip.split("\\.");
 		String[] binario = new String[8];
@@ -155,6 +160,27 @@ public class calculadora {
 		}
 		System.out.print("\n");
 		System.out.print(decBoolean);
+		return decBoolean;
 	}
-	
+	static String getRede(String ip, int ip1, Integer rede) {
+		
+		String[] rede1 = ip.split("\\.");
+		
+		String rede2 = rede.toString();
+		
+		rede1[ip1] = rede2;
+		
+		if(ip1 == 0) {
+			return rede2+".0.0.0";
+		}else if(ip1 == 1) {
+			return rede1[0]+"."+rede2+".0.0";
+		}else if(ip1 == 2) {
+			return rede1[0]+"."+rede1[1]+"."+rede2+".0";
+		}else {
+			return rede1[0]+"."+rede1[1]+"."+rede1[2]+"."+rede2;
+		}
+	}
+	static String getBroadcast(String redeFinal) {
+		return "0";
+	}
 }
