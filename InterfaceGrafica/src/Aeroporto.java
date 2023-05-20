@@ -10,6 +10,7 @@ public class Aeroporto {
 		this.aviao = aviao;
 		this.preco = preco;
 	}
+	
 	public int getNumeroVoo() {
 		return numeroVoo;
 	}
