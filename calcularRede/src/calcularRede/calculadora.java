@@ -10,19 +10,18 @@ public class calculadora {
 		
 		String mascara = getMascara(preMascara);
 		
-		JOptionPane.showMessageDialog(null, "Mascara: "+mascara,"Informação",JOptionPane.INFORMATION_MESSAGE);
-		
 		String[] binario1 = new String [8];
 		
 		int ip1 = getBinarioMasc(mascara, binario1);
 		
-		System.out.print("\n");
-		
 		int rede = getBinarioIp(ip, ip1, binario1);
+		
 		String redeFinal = getRede(ip, ip1, rede);
-		System.out.print("\n");
-		System.out.println(redeFinal);
-		String broadcast =  getBroadcast(redeFinal);
+		
+		String broadcast = getBroadcast(redeFinal, binario1, ip, ip1);
+		
+		JOptionPane.showMessageDialog(null, "Informações: "+"\nRede: "+redeFinal+"\nBroadcast: "+broadcast,"Informação",JOptionPane.INFORMATION_MESSAGE);
+		
 
 	}
 	static String getMascara(String preMascara) {
@@ -106,13 +105,19 @@ public class calculadora {
 						masc -= cont;
 						cont /= 2;
 					}
-					System.out.print(binario[j]);
+					
 				}
 				
 				return i;
+			}else if(masc == 0) {
+				for(int j=0; j<8; j++) {
+					binario1[j] = "1";
+					
+				}
+				return i-1;
 			}
 		}
-		return 0;
+		return 3;
 		
 	}
 	static int getBinarioIp(String ip, int ip1, String[] binario1) {
@@ -131,7 +136,7 @@ public class calculadora {
 				binario[j] = "0";
 				cont /= 2;
 			}
-				System.out.print(binario[j]);
+				
 			}
 		
 		String[] boolean1 = new String[8]; 
@@ -144,7 +149,7 @@ public class calculadora {
 			}else {
 				boolean1[i] = "0";
 			}
-			System.out.print(boolean1[i]);
+			
 		}
 		
 		int decBoolean=0;
@@ -158,8 +163,6 @@ public class calculadora {
 				cont1 /= 2;
 			}
 		}
-		System.out.print("\n");
-		System.out.print(decBoolean);
 		return decBoolean;
 	}
 	static String getRede(String ip, int ip1, Integer rede) {
@@ -169,18 +172,47 @@ public class calculadora {
 		String rede2 = rede.toString();
 		
 		rede1[ip1] = rede2;
+		String rede3 = "";
 		
 		if(ip1 == 0) {
-			return rede2+".0.0.0";
+			rede3 = rede2+".0.0.0"; 
 		}else if(ip1 == 1) {
-			return rede1[0]+"."+rede2+".0.0";
+			rede3 = rede1[0]+"."+rede2+".0.0"; 
 		}else if(ip1 == 2) {
-			return rede1[0]+"."+rede1[1]+"."+rede2+".0";
+			rede3 = rede1[0]+"."+rede1[1]+"."+rede2+".0";
 		}else {
-			return rede1[0]+"."+rede1[1]+"."+rede1[2]+"."+rede2;
+			rede3 = rede1[0]+"."+rede1[1]+"."+rede1[2]+"."+rede2;
 		}
+		return rede3;
 	}
-	static String getBroadcast(String redeFinal) {
-		return "0";
+	static String getBroadcast(String redeFinal, String[] binario1, String ip, int ip1) {
+		
+		String[] rede1 = ip.split("\\.");
+		String redeFinal1 = redeFinal.split("\\.")[ip1];
+		
+		int cont1 = 256;
+		
+		for(int i=0; i<8; i++) {
+			if(binario1[i].equals("1")) {
+				cont1 /= 2;
+			}
+		}
+		int rede = Integer.parseInt(redeFinal1);
+
+		int rede2 = rede + cont1-1;
+		
+		String broadcast = "";
+		
+		if(ip1 == 0) {
+			broadcast = rede2+".255.255.255"; 
+		}else if(ip1 == 1) {
+			broadcast = rede1[0]+"."+rede2+".255.255"; 
+		}else if(ip1 == 2) {
+			broadcast = rede1[0]+"."+rede1[1]+"."+rede2+".255";
+		}else {
+			broadcast = rede1[0]+"."+rede1[1]+"."+rede1[2]+"."+rede2;
+		}
+		return broadcast;
+		
 	}
 }
